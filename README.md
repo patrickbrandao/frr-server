@@ -4,25 +4,16 @@
 Container para rodar FRR em qualquer topologia (RR, RS, Router, Looking Glass, ...)
 Suporte a envio de logs para upstream syslog server.
 
-
 ## Construir container
 
 ```bash
-
 sh build.sh
-
 ```
 
+## Ambiente de teste
 
-## Container de desenvolvimento do zero
+Rode os scripts em ./tests/
 
-```bash
-
-docker rm -f frr-server-dev;
-docker run -d --name frr-server-dev -h frr-server-dev --network network_public debian:trixie sleep 999111;
-docker exec -it --user root frr-server-dev bash;
-
-```
 ## Variáveis de ambiente
 
 ```
@@ -111,18 +102,9 @@ docker exec -it --user root frr-server-dev bash;
 #
 ```
 
-## Ambiente de teste
-
-### Rede
-
-Rode os scripts em ./tests/
-
-
-### Teste de informacoes SNMP (dentro do container)
-
+## Teste de informacoes SNMP (dentro do container)
 
 ```
-
 . /opt/env.sh;
 
 # Informações Gerais
@@ -148,18 +130,13 @@ snmpwalk -v2c -c "$SNMP_COMMUNITY" localhost:$SNMP_PORT .1.3.6.1.4.1.3317;
 snmpwalk -v2c -c "$SNMP_COMMUNITY" localhost:$SNMP_PORT .1.3.6.1.6.3.15;
 snmpwalk -v2c -c "$SNMP_COMMUNITY" localhost:$SNMP_PORT .1.3.6.1.6.3.16;
 snmpwalk -v2c -c "$SNMP_COMMUNITY" localhost:$SNMP_PORT .1.3.6.1.6.3.18;
-
-
-
 ```
 
 
 ## Comandos mais comuns no FRR
 
 ```
-
-# Analise de BGP
-
+    # Analise de BGP
     show ip bgp summary
     show bgp summary
 
@@ -232,9 +209,12 @@ snmpwalk -v2c -c "$SNMP_COMMUNITY" localhost:$SNMP_PORT .1.3.6.1.6.3.18;
     show evpn vni detail
     show evpn vni 100
     show evpn mac vni 100
-
-
 ```
 
+## Container de desenvolvimento do zero
 
-
+```bash
+docker rm -f frr-server-dev;
+docker run -d --name frr-server-dev -h frr-server-dev --network network_public debian:trixie sleep 999111;
+docker exec -it --user root frr-server-dev bash;
+```
